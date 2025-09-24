@@ -312,3 +312,12 @@ def returnBitMapTArrayPhoton(bitMap, var1, var2):
                 temp.append(False)
         tList.append(temp)
     return ak.Array(tList)
+
+def numClose(self, other, r):
+    distance = other.metric_table(self)
+    close = ak.count(distance[distance < r], axis=1)
+    return close
+   
+
+
+    

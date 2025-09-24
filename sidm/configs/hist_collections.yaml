@@ -292,6 +292,7 @@ genA_toMu_base: &genA_toMu_base
   - "genAs_toMu_pt_highRange"
   - "genAs_toMu_eta"
   - "genAs_toMu_lxy"
+  - "genAs_toMu_lxy_highRange"
   - "genAs_toMu_pt_MuMudR_lowRange"
   - "genAs_toMu_pt_MuMudR_XLowRange"
   - "genAs_toMu_pt_MuMudR_XXLowRange"

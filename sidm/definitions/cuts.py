@@ -4,7 +4,7 @@
 import awkward as ak
 # local
 from sidm.definitions.objects import derived_objs
-from sidm.tools.utilities import dR, lxy, rho, check_bits, returnBitMapTArrayPhoton
+from sidm.tools.utilities import dR, lxy, rho, check_bits, returnBitMapTArrayPhoton, numClose
 
 obj_cut_defs = {
     "pvs": {
@@ -88,6 +88,12 @@ obj_cut_defs = {
         "lxy <= 400 cm": lambda objs: lxy(objs["genAs_toMu"]) <= 400,
         "pT > 30 GeV": lambda objs: objs["genAs_toMu"].pt > 30,
         "pT < 300 GeV": lambda objs: objs["genAs_toMu"].pt < 300,
+        "close mu": lambda objs: dR(objs["genAs_toMu"], objs["muons"]) < 0.4,
+        ">= 2 close mu": lambda objs: numClose(objs["genAs_toMu"],objs["muons"],0.4) >= 2,
+        "close dsaMu": lambda objs: dR(objs["genAs_toMu"], objs["dsaMuons"]) < 0.4,
+        ">= 2 close dsaMu": lambda objs: numClose(objs["genAs_toMu"],objs["dsaMuons"],0.4) >= 2,
+        "close muon LJ": lambda objs: dR(objs["genAs_toMu"], objs["mu_ljs"]) < 0.4,
+        ">= 2 close muon LJ": lambda objs: numClose(objs["genAs_toMu"],objs["mu_ljs"],0.4) >= 2,
     },
     "genAs_toE": {
         "dR(A, LJ) < 0.2": lambda objs: dR(objs["genAs_toE"], objs["ljs"]) < 0.2,
@@ -175,6 +181,7 @@ obj_cut_defs = {
         "dR(mu, A) < 0.5": lambda objs: dR(objs["dsaMuons"], objs["genAs_toMu"]) < 0.5,
         "dR(dsa, pf) > 0.2": lambda objs: dR(objs["dsaMuons"], objs["muons"]) > 0.2,
     },
+     
 }
 
 evt_cut_defs = {
@@ -199,6 +206,7 @@ evt_cut_defs = {
         | objs["hlt"].Photon200
     ),
     ">=1 muon": lambda objs: ak.num(objs["muons"]) >= 1,
+    "2 muons": lambda objs: ak.num(objs["muons"]) == 2,
     "PV filter": lambda objs: ak.flatten(objs["pvs"].npvsGood) >= 1,
     #"Cosmic veto": lambda objs: objs["cosmicveto"].result,
     ">=2 LJs": lambda objs: ak.num(objs["ljs"]) >= 2,
