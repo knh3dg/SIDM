@@ -217,6 +217,18 @@ noLj2dsamu: &noLj2dsamu
       - ">= 2 close dsaMu"
   evt_cuts: &evt_noLj2dsamu
     - *evt_baseNoLj
+
+# apply trigger, gen cuts, pv filter, and lj-source cuts, >= 2 dsaMuons, and CC
+noLj2dsamuCC: &noLj2dsamuCC
+  obj_cuts: &obj_noLj2dsamuCC
+    <<: *obj_baseNoLj
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  evt_cuts: &evt_noLj2dsamuCC
+    - *evt_baseNoLj
     
 # apply trigger, gen cuts, pv filter, and lj-source cuts, >= two dsaMuons, and at least 1 muon type lepton jet nearby
 noLj2dsamu1mulj: &noLj2dsamu1mulj
