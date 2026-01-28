@@ -2965,4 +2965,56 @@ hist_defs = {
         evt_mask=lambda objs: ((ak.num(matched(objs["genMus"], objs["muons"], 0.4)) > 0)
                                & (ak.num(matched(objs["genAs"], objs["muons"], 0.4)) > 0)),
     ),
+        "genMus_fromZ_invmass": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(100, 0, 1200, name="mu_mass",
+                                     label=r"Invariant Mass (GeV)"),
+                   lambda objs, mask: objs["genMus_fromZ"].mass),
+        ],
+    ),
+            "genMus_fromZ_parent": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(100, 0, 100, name="id",
+                                     label=r"parent id"),
+                   lambda objs, mask: objs["genMus_fromZ"].parent.pdgId),
+        ],
+    ),
+                "genMus_parent": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(100, 0, 100, name="id",
+                                     label=r"parent id"),
+                   lambda objs, mask: objs["genMus"].parent.pdgId),
+        ],
+    ),
+        "genAs_toMu_children_absPdgId": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(50, 0, 50, name="genAs_children_absPdgId"),
+                   lambda objs, mask: abs(objs["genAs_toMu"].children.pdgId)),
+        ],
+    ),
+        "genAs_toMu_muon_n": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(10, 0, 2, name="genAs_toMu_muon_n"),
+                   lambda objs, mask: ak.num(abs(objs["genAs_toMu"].children.pdgId) == 13)),
+        ],
+    ),
+        "muLj_matched_genAs_toMu_muon_n": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(16, -1, 3, name="muLj_matched_genAs_toMu_muon_n"),
+                   lambda objs, mask: matched(objs["mu_ljs"], objs["genAs_toMu"], 0.4)),
+        ],
+    ),
+    "muLj_matched_genAs_toMu_pt": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(200, 0, 1000, name="muLj_pt"),
+                   lambda objs, mask: derived_objs["mulj_matched_genAs_toMu"](objs, 0.4)[mask].pt),
+        ],
+    ),
+    "muLj_matched_genAs_toMu_pt_ratio": h.Histogram(
+        [
+            h.Axis(hist.axis.Regular(200, 0, 5, name="pt_ratio"),
+                   lambda objs, mask: derived_objs["mulj_matched_genAs_toMu"](objs, 0.4)[mask].pt
+                  / derived_objs["mulj_matched_genAs_toMu"](objs, 0.4)[mask].nearest(objs["genAs_toMu"], threshold=0.4).pt),
+        ],
+    ),
 }

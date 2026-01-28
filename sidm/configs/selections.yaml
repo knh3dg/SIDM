@@ -52,6 +52,16 @@ baseNoTriggerNoLjNoLjsource: &baseNoTriggerNoLjNoLjsource
   evt_cuts: &evt_baseNoTriggerNoLjNoLjsource
     - *evt_pv_cuts
 
+# apply gen cuts and pv filter
+baseNoTriggerNoLjNoLjsourceCC: &baseNoTriggerNoLjNoLjsourceCC
+  obj_cuts: 
+    <<: *obj_gen_level_cuts
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  evt_cuts: 
+    - *evt_pv_cuts
+
 # apply gen cuts and pv filter and at least 1 close mu lj
 notrigger_closemuLJ: &notrigger_closemuLJ
   obj_cuts:
@@ -88,6 +98,18 @@ notrigger_2closemuLJ: &notrigger_2closemuLJ
 notrigger_1pfmu: &notrigger_1pfmu
   obj_cuts:
     <<: *obj_gen_level_cuts
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close mu"
+  evt_cuts:
+    - *evt_pv_cuts
+
+# apply gen cuts, pv filter, at least 1 close pf Mu, and Lj source cuts
+notrigger_1pfmu_ljsource: &notrigger_1pfmu_ljsource
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+    <<: *obj_ljsource_cuts
+  postLj_obj_cuts:
     genAs_toMu:
       - "close mu"
   evt_cuts:
@@ -97,6 +119,18 @@ notrigger_1pfmu: &notrigger_1pfmu
 notrigger_2pfmu: &notrigger_2pfmu
   obj_cuts:
     <<: *obj_gen_level_cuts
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close mu"
+  evt_cuts:
+    - *evt_pv_cuts
+
+# apply gen cuts, pv filter, at least 2 close pf Mu, and Lj source cuts
+notrigger_2pfmu_ljsource: &notrigger_2pfmu_ljsource
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+    <<: *obj_ljsource_cuts
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close mu"
   evt_cuts:
@@ -106,15 +140,65 @@ notrigger_2pfmu: &notrigger_2pfmu
 notrigger_1dsamu: &notrigger_1dsamu
   obj_cuts:
     <<: *obj_gen_level_cuts
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close dsaMu"
+  evt_cuts:
+    - *evt_pv_cuts
+
+# apply gen cuts, pv filter, at least 1 close dsa Mu, and Lj source cuts
+notrigger_1dsamu_ljsource: &notrigger_1dsamu_ljsource
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+    <<: *obj_ljsource_cuts
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close dsaMu"
+  evt_cuts:
+    - *evt_pv_cuts
+
+# apply gen cuts, pv filter, at least 1 close dsa Mu, and CC
+notrigger_1dsamuCC: &notrigger_1dsamuCC
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
     genAs_toMu:
       - "close dsaMu"
   evt_cuts:
     - *evt_pv_cuts
 
 # apply gen cuts and pv filter and at least 2 close dsa Mu
+notrigger_2dsamu_ljsource: &notrigger_2dsamu_ljsource
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+    <<: *obj_ljsource_cuts
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+  evt_cuts:
+    - *evt_pv_cuts
+
+# apply gen cuts, pv filter, at least 2 close dsa Mu, and Lj source cuts
 notrigger_2dsamu: &notrigger_2dsamu
   obj_cuts:
     <<: *obj_gen_level_cuts
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+  evt_cuts:
+    - *evt_pv_cuts
+
+# apply gen cuts, pv filter, at least 2 close dsa Mu, and CC
+notrigger_2dsamuCC: &notrigger_2dsamuCC
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
   evt_cuts:
@@ -124,10 +208,9 @@ notrigger_2dsamu: &notrigger_2dsamu
 notrigger_2dsamu1muLJ: &notrigger_2dsamu1muLJ
   obj_cuts:
     <<: *obj_gen_level_cuts
-    genAs_toMu:
-      - ">= 2 close dsaMu"
   postLj_obj_cuts:
     genAs_toMu:
+      - ">= 2 close dsaMu"
       - "close muon LJ"
   evt_cuts:
     - *evt_pv_cuts
@@ -136,10 +219,9 @@ notrigger_2dsamu1muLJ: &notrigger_2dsamu1muLJ
 notrigger_2dsamu1muLJ_0charge: &notrigger_2dsamu1muLJ_0charge
   obj_cuts:
     <<: *obj_gen_level_cuts
-    genAs_toMu:
-      - ">= 2 close dsaMu"
   postLj_obj_cuts:
     genAs_toMu:
+      - ">= 2 close dsaMu"
       - "close muon LJ"
     ljs:
       - "mu_charge == 0"
@@ -186,6 +268,7 @@ baseNoLj: &baseNoLj
 noLj1pfmu: &noLj1pfmu
   obj_cuts: &obj_noLj1pfmu
     <<: *obj_baseNoLj
+  postLj_obj_cuts:
     genAs_toMu:
       - "close mu"
   evt_cuts: &evt_noLj1pfmu
@@ -195,6 +278,7 @@ noLj1pfmu: &noLj1pfmu
 noLj2pfmu: &noLj2pfmu
   obj_cuts: &obj_noLj2pfmu
     <<: *obj_baseNoLj
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close mu"
   evt_cuts: &evt_noLj2pfmu
@@ -204,15 +288,39 @@ noLj2pfmu: &noLj2pfmu
 noLj1dsamu: &noLj1dsamu
   obj_cuts: &obj_noLj1dsamu
     <<: *obj_baseNoLj
+  postLj_obj_cuts:
     genAs_toMu:
       - "close dsaMu"
   evt_cuts: &evt_noLj1dsamu
+    - *evt_baseNoLj
+
+# apply trigger, gen cuts, pv filter, and lj-source cuts, and >= 1 dsaMuons
+testnoLj1dsamu: &testnoLj1dsamu
+  obj_cuts:
+    <<: *obj_baseNoLj
+    genAs_toMu:
+      - "test close dsaMu"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+# apply trigger, gen cuts, pv filter, and lj-source cuts, >= 1 dsaMuons, and CC
+noLj1dsamuCC: &noLj1dsamuCC
+  obj_cuts: &obj_noLj1dsamuCC
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close dsaMu"
+  evt_cuts: &evt_noLj1dsamuCC
     - *evt_baseNoLj
     
 # apply trigger, gen cuts, pv filter, and lj-source cuts, and >= 2 dsaMuons
 noLj2dsamu: &noLj2dsamu
   obj_cuts: &obj_noLj2dsamu
     <<: *obj_baseNoLj
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
   evt_cuts: &evt_noLj2dsamu
@@ -222,21 +330,55 @@ noLj2dsamu: &noLj2dsamu
 noLj2dsamuCC: &noLj2dsamuCC
   obj_cuts: &obj_noLj2dsamuCC
     <<: *obj_baseNoLj
-    genAs_toMu:
-      - ">= 2 close dsaMu"
   preLj_obj_cuts:
     dsaMuons:
       - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
   evt_cuts: &evt_noLj2dsamuCC
     - *evt_baseNoLj
+
+# apply trigger, gen cuts, pv filter, and lj-source cuts, >= 2 pfMu, and CC
+noLj2pfmuCC: &noLj2pfmuCC
+  obj_cuts: &obj_noLj2pfmuCC
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close mu"
+  evt_cuts: &evt_noLj2pfmuCC
+    - *evt_baseNoLj
+
+# noLjCC
+noLjCC: &noLjCC
+  obj_cuts: 
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  evt_cuts:
+    - *evt_baseNoLj
+
+# no triggers CC
+notriggerCC: &notriggerCC
+  obj_cuts:
+    <<: *obj_gen_level_cuts
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  evt_cuts:
+    - *evt_pv_cuts
     
 # apply trigger, gen cuts, pv filter, and lj-source cuts, >= two dsaMuons, and at least 1 muon type lepton jet nearby
 noLj2dsamu1mulj: &noLj2dsamu1mulj
   obj_cuts: &obj_noLj2dsamu1mulj
     <<: *obj_baseNoLj
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
-  postLj_obj_cuts:
     genAs_toMu:
       - "close muon LJ"
   evt_cuts: &evt_noLj2dsamu1mulj
@@ -254,11 +396,244 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
   evt_cuts: &evt_noLj2dsamu2mulj
     - *evt_baseNoLj
 
+# apply trigger, gen cuts, pv filter, and lj-source cuts, >= two dsaMuons,at lea st 1 muon type lepton jet nearby, and LJ pv/eta cuts
+2dsa1muLj: &2dsa1muLj
+  obj_cuts:
+    <<: *obj_baseNoLj
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
 
+    
+
+# apply trigger, gen cuts, pv filter, and lj-source cuts, >= two dsaMuons,at lea st 1 muon type lepton jet nearby, LJ pv/eta cuts, and 0 charge
+2dsa1muLj0charge: &2dsa1muLj0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+      - "close muon LJ"
+    ljs:
+      - "mu_charge == 0"
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts:
+    - *evt_baseNoLj
+########################################
+2dsa1muLjCC: &2dsa1muLjCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+
+2dsa1muLj0chargeCC: &2dsa1muLj0chargeCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+      - "close muon LJ"
+    ljs:
+      - "mu_charge == 0"
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts:
+    - *evt_baseNoLj
+
+    
+1muLjCC: &1muLjCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+    
+1muLj2muCC: &1muLj2muCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+
+1muLj0charge2muCC: &1muLj0charge2muCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+      - "mu_charge == 0"
+  evt_cuts:
+    - *evt_baseNoLj
+
+    
+1muLj2dsaMuCC: &1muLj2dsaMuCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2dsaMuLj"
+  evt_cuts:
+    - *evt_baseNoLj
+
+
+1muLjCC0charge: &1muLjCC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+    
+1muLj2muCC0charge: &1muLj2muCC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+
+1muLj0charge2muCC0charge: &1muLj0charge2muCC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+      - "mu_charge == 0"
+  evt_cuts:
+    - *evt_baseNoLj
+
+    
+1muLj2dsaMuCC0charge: &1muLj2dsaMuCC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2dsaMuLj"
+  evt_cuts:
+    - *evt_baseNoLj
+############################################3
+2dsa1muLjCCnocharge: &2dsa1muLjCCnocharge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+      - "close muon LJ"
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+2dsa1muLj0chargeCCnocharge: &2dsa1muLj0chargeCCnocharge
+  obj_cuts:
+    <<: *obj_baseNoLj
+  preLj_obj_cuts:
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    genAs_toMu:
+      - ">= 2 close dsaMu"
+      - "close muon LJ"
+    ljs:
+      - "mu_charge == 0"
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts:
+    - *evt_baseNoLj
+
+    
 #test cuts-------------------------------------------------------------------------------------
 noTriggerNoLjNoLjsource2dsamu:
   obj_cuts: 
     <<: *obj_gen_level_cuts
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
   evt_cuts: 
@@ -269,6 +644,7 @@ ljsource_test_electrons:
       <<: *obj_baseNoLjNoLjsource
       electrons:
         - *electrons_ljsource_cuts
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:
@@ -279,6 +655,7 @@ ljsource_test_muons:
       <<: *obj_baseNoLjNoLjsource
       muons:
         - *muons_ljsource_cuts
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:
@@ -289,6 +666,7 @@ ljsource_test_photons:
       <<: *obj_baseNoLjNoLjsource
       photons:
         - *photons_ljsource_cuts
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:
@@ -299,6 +677,51 @@ ljsource_test_dsaMuons:
       <<: *obj_baseNoLjNoLjsource
       dsaMuons:
         - *dsaMuons_ljsource_cuts
+    postLj_obj_cuts:
+      genAs_toMu:
+        - ">= 2 close mu"
+    evt_cuts:
+      - *evt_baseNoLjNoljsource
+
+ljsource_test_electrons_dsa:
+    obj_cuts:
+      <<: *obj_baseNoLjNoLjsource
+      electrons:
+        - *electrons_ljsource_cuts
+    postLj_obj_cuts:
+      genAs_toMu:
+        - ">= 2 close dsaMu"
+    evt_cuts:
+      - *evt_baseNoLjNoljsource
+
+ljsource_test_muons_dsa:
+    obj_cuts:
+      <<: *obj_baseNoLjNoLjsource
+      muons:
+        - *muons_ljsource_cuts
+    postLj_obj_cuts:
+      genAs_toMu:
+        - ">= 2 close dsaMu"
+    evt_cuts:
+      - *evt_baseNoLjNoljsource
+
+ljsource_test_photons_dsa:
+    obj_cuts:
+      <<: *obj_baseNoLjNoLjsource
+      photons:
+        - *photons_ljsource_cuts
+    postLj_obj_cuts:
+      genAs_toMu:
+        - ">= 2 close dsaMu"
+    evt_cuts:
+      - *evt_baseNoLjNoljsource
+
+ljsource_test_dsaMuons_dsa:
+    obj_cuts:
+      <<: *obj_baseNoLjNoLjsource
+      dsaMuons:
+        - *dsaMuons_ljsource_cuts
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:
@@ -309,6 +732,7 @@ ljsource_test_dsaMuon_pt:
     <<: *obj_baseNoLjNoLjsource
     dsaMuons:
       - "pT > 10 GeV"
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
   evt_cuts:
@@ -319,6 +743,7 @@ ljsource_test_dsaMuon_eta:
     <<: *obj_baseNoLjNoLjsource
     dsaMuons:
       - "|eta| < 2.4"
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
   evt_cuts:
@@ -329,6 +754,7 @@ ljsource_test_dsaMuon_displacedID:
     <<: *obj_baseNoLjNoLjsource
     dsaMuons:
       - "displaced ID"
+  postLj_obj_cuts:
     genAs_toMu:
       - ">= 2 close dsaMu"
   evt_cuts:
@@ -339,6 +765,7 @@ ljsource_test_pfMuon_pt:
       <<: *obj_baseNoLjNoLjsource
       muons:
         - "pT > 5 GeV"
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:
@@ -349,6 +776,7 @@ ljsource_test_pfMuon_eta:
       <<: *obj_baseNoLjNoLjsource
       muons:
         - "|eta| < 2.4"
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:
@@ -359,6 +787,7 @@ ljsource_test_pfMuon_looseID:
       <<: *obj_baseNoLjNoLjsource
       muons:
         - "looseID"
+    postLj_obj_cuts:
       genAs_toMu:
         - ">= 2 close mu"
     evt_cuts:

@@ -10,6 +10,9 @@ def pid(part, val):
 def toPid(part, val):
     return part[ak.all(abs(part.children.pdgId) == val, axis=-1)]
 
+def fromPid(part, val):
+    return part[abs(part.parent.pdgId) == val]
+
 def yesMu(lj):
     return lj[lj.muon_n > 0]
 
@@ -51,6 +54,7 @@ preLj_objs["genMus"]     = lambda evts: pid(preLj_objs["gens"](evts), 13)
 preLj_objs["genEs"]      = lambda evts: pid(preLj_objs["gens"](evts), 11)
 preLj_objs["genAs"]      = lambda evts: pid(preLj_objs["gens"](evts), 32)
 preLj_objs["genAs_toMu"] = lambda evts: toPid(preLj_objs["genAs"](evts), 13)
+preLj_objs["genMus_fromZ"] = lambda evts: fromPid(preLj_objs["genMus"](evts), 23)
 preLj_objs["genAs_toE"]  = lambda evts: toPid(preLj_objs["genAs"](evts), 11)
 preLj_objs["rho_PFIso"]  = lambda evts: evts.fixedGridRhoFastjetAll
 preLj_objs["jets"]       = lambda evts: evts.Jet
@@ -82,4 +86,6 @@ derived_objs["dsaMuons_matched_genAs"] = lambda objs, r: matched(objs["dsaMuons"
 
 derived_objs["lj_matched_genAs_toMu"]   = lambda objs, r: matched(objs["ljs"], objs["genAs_toMu"], r)
 derived_objs["lj_matched_genAs_toE"]    = lambda objs, r: matched(objs["ljs"], objs["genAs_toE"], r)
+
+derived_objs["mulj_matched_genAs_toMu"]   = lambda objs, r: matched(objs["mu_ljs"], objs["genAs_toMu"], r)
 

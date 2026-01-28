@@ -365,6 +365,8 @@ genMu_base: &genMu_base
   - "genMu1_pt_highRange_MuMudR"
   - "genMu1_pt_highRange_MuMudR_XLowRange"
   - "genMu1_pt_highRange_MuMudR_XXLowRange"
+  - "genMus_parent"
+ 
 
 genA_base: &genA_base
   - "genAs_n"
@@ -413,6 +415,11 @@ genA_toMu_base: &genA_toMu_base
   - "genAs_toMu_matched_muLj_pt_lxy"
   - "genAs_toMu_pt_MuMudR_highRange"
   - "genAs_toMu_pt_highRange_MuMudR_lowRange"
+  - "genAs_toMu_children_absPdgId"
+  - "genAs_toMu_muon_n"
+  - "muLj_matched_genAs_toMu_muon_n"
+  - "muLj_matched_genAs_toMu_pt"
+  - "muLj_matched_genAs_toMu_pt_ratio"
 
 genA_toE_base: &genA_toE_base
   - "genAs_toE_n"
@@ -606,4 +613,8 @@ lj_reco_effi_base: &lj_reco_effi_base
   - "genMu_genMu_dR_lowRange"
   - "genMu_genMu_dR_XLowRange"
   - "genMu_genMu_dR_XXLowRange"
+
+genMus_fromZ_base: &genMus_fromZ_base
+  - "genMus_fromZ_invmass"
+  - "genMus_fromZ_parent"
 
