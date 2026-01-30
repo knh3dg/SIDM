@@ -57,7 +57,6 @@ baseNoTriggerNoLjNoLjsource: &baseNoTriggerNoLjNoLjsource
 baseNoTriggerNoLjNoLjsourceCC: &baseNoTriggerNoLjNoLjsourceCC
   obj_cuts: 
     <<: *obj_gen_level_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   evt_cuts: 
@@ -162,7 +161,6 @@ notrigger_1dsamu_ljsource: &notrigger_1dsamu_ljsource
 notrigger_1dsamuCC: &notrigger_1dsamuCC
   obj_cuts:
     <<: *obj_gen_level_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -196,7 +194,6 @@ notrigger_2dsamu: &notrigger_2dsamu
 notrigger_2dsamuCC: &notrigger_2dsamuCC
   obj_cuts:
     <<: *obj_gen_level_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -308,7 +305,6 @@ testnoLj1dsamu: &testnoLj1dsamu
 noLj1dsamuCC: &noLj1dsamuCC
   obj_cuts: &obj_noLj1dsamuCC
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -331,7 +327,6 @@ noLj2dsamu: &noLj2dsamu
 noLj2dsamuCC: &noLj2dsamuCC
   obj_cuts: &obj_noLj2dsamuCC
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -344,7 +339,6 @@ noLj2dsamuCC: &noLj2dsamuCC
 noLj2pfmuCC: &noLj2pfmuCC
   obj_cuts: &obj_noLj2pfmuCC
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -357,7 +351,6 @@ noLj2pfmuCC: &noLj2pfmuCC
 noLjCC: &noLjCC
   obj_cuts: 
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   evt_cuts:
@@ -367,7 +360,6 @@ noLjCC: &noLjCC
 notriggerCC: &notriggerCC
   obj_cuts:
     <<: *obj_gen_level_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   evt_cuts:
@@ -431,7 +423,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 2dsa1muLjCC: &2dsa1muLjCC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -448,7 +439,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 2dsa1muLj0chargeCC: &2dsa1muLj0chargeCC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -466,7 +456,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLjCC: &1muLjCC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -482,7 +471,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLj2muCC: &1muLj2muCC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -498,7 +486,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLj0charge2muCC: &1muLj0charge2muCC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -516,7 +503,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLj2dsaMuCC: &1muLj2dsaMuCC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -533,7 +519,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLjCC0charge: &1muLjCC0charge
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -549,7 +534,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLj2muCC0charge: &1muLj2muCC0charge
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -565,7 +549,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLj0charge2muCC0charge: &1muLj0charge2muCC0charge
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -583,7 +566,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 1muLj2dsaMuCC0charge: &1muLj2dsaMuCC0charge
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -599,7 +581,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 2dsa1muLjCCnocharge: &2dsa1muLjCCnocharge
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -615,7 +596,6 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
 2dsa1muLj0chargeCCnocharge: &2dsa1muLj0chargeCCnocharge
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -842,7 +822,6 @@ baseNoLj_seg_veto_charge: &baseNoLj_seg_veto_charge
   obj_cuts: 
     <<: *obj_baseNoLjNoLjsource
     <<: *obj_ljsource_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + charge"
   postLj_obj_cuts:
@@ -856,7 +835,6 @@ baseNoLj_seg_veto_dRouter: &baseNoLj_seg_veto_dRouter
   obj_cuts: 
     <<: *obj_baseNoLjNoLjsource
     <<: *obj_ljsource_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer"
   postLj_obj_cuts:
@@ -870,7 +848,6 @@ baseNoLj_seg_veto_numseg: &baseNoLj_seg_veto_numseg
   obj_cuts: 
     <<: *obj_baseNoLjNoLjsource
     <<: *obj_ljsource_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + num seg"
   postLj_obj_cuts:
@@ -884,7 +861,6 @@ baseNoLj_wocharge: &baseNoLj_wocharge
   obj_cuts: 
     <<: *obj_baseNoLjNoLjsource
     <<: *obj_ljsource_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "segmatch veto + dR outer + num seg"
   postLj_obj_cuts:
@@ -898,7 +874,6 @@ baseNoLj_all: &baseNoLj_all
   obj_cuts: 
     <<: *obj_baseNoLjNoLjsource
     <<: *obj_ljsource_cuts
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
@@ -932,7 +907,6 @@ base_preCC: &base_preCC
 base_CC: &base_CC
   obj_cuts:
     <<: *obj_baseNoLj
-  preLj_obj_cuts:
     dsaMuons:
       - "all"
   postLj_obj_cuts:
