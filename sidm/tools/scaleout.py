@@ -9,5 +9,5 @@ def make_dask_client(address):
         "git+https://github.com/yeopjjang/SIDM.git@coffea2025_crosscleaning",
     ]
     client = Client(address)
-    client.register_plugin(PipInstall(packages=dependencies, pip_options=["--upgrade"]))
+    client.register_plugin(PipInstall(packages=dependencies, pip_options=["--upgrade", "--no-cache-dir"]))
     return client

@@ -152,14 +152,18 @@ def plot(hists, skip_label=False, **kwargs):
 
 def get_eff_hist(num_hist, denom_hist):
     """Returns the histogram of num_hist/denom_hist and a 2D numpy array of the up/down errors on the efficiency. Plot the errors using yerr=errors when plotting. """
-    denom_vals  = denom_hist.values()
-    num_vals   = num_hist.values()
-
-    errors = hist.intervals.ratio_uncertainty(num_vals,denom_vals,'efficiency')
+    # make efficiency hist
+    denom_vals = denom_hist.values()
+    num_vals = num_hist.values()
     eff_values = num_vals/denom_vals
-
     eff_hist = hist.Hist(*num_hist.axes)
     eff_hist.values()[:] = eff_values
+
+    # approximate weighted-hist errors based on avg (per-bin) weights
+    num_counts = num_vals**2 / num_hist.variances()
+    denom_counts = denom_vals**2 / denom_hist.variances()
+    errors = hist.intervals.ratio_uncertainty(num_counts, denom_counts, 'efficiency')
+
     return eff_hist, errors
 
 def load_yaml(cfg):
@@ -183,7 +187,10 @@ def make_fileset(samples, ntuple_version, max_files=-1, location_cfg="signal_v8.
         fileset[sample] = {
             "files": file_list,
             "metadata": {
-                "skim_factor": sample_yaml.get("skim_factor", 1.0)}
+                "skim_factor": sample_yaml.get("skim_factor", 1.0),
+                "is_data": sample_yaml.get("is_data", False),
+                "year": sample_yaml.get("year", "2018"),
+            },
         }
     return fileset
 
@@ -202,18 +209,35 @@ def get_hist_mean(h):
     return np.atleast_1d(h.profile(axis=0).view())[0].value
 
 def plot_ratio(num, den, **kwargs):
-    plt.subplots(2, 1, figsize=(10, 10), sharex=True,
-                      gridspec_kw={'height_ratios': [2, 1],'hspace':0})
-    plt.subplot(2, 1, 1)
-    plot(num, flow='none')
-    plot(den, flow='none')
+    fig, (ax1, ax2) = plt.subplots(
+        2, 1, figsize=(12, 12), sharex=True,
+        gridspec_kw={'height_ratios': [3, 1], 'hspace': 0}
+    )
+    plt.sca(ax1)
+    plot(den, flow='none', color="k", skip_label=True,
+         label=kwargs["legend"][0])
+
+    if not isinstance(num, list):
+        num = [num]
+
+    for i, x in enumerate(num):
+        plot(x, flow='none', label=kwargs["legend"][i + 1])
+
     if "legend" in kwargs:
-        plt.legend(kwargs["legend"])
-    plt.subplot(2, 1, 2)
-    eff, errors = get_eff_hist(num, den)
-    plot(eff,yerr=errors,skip_label=True,color="black")
-    plt.ylabel("Efficiency")
-    plt.ylim(0, 1.2)
+        ax1.legend( title = kwargs["text"], alignment="left", )
+
+    if "ylim" in kwargs:
+        plt.ylim(kwargs["ylim"])
+    if "ylabel" in kwargs:
+        plt.ylabel(kwargs["ylabel"])
+    plt.tight_layout()
+    plt.sca(ax2)
+    for x in num:
+        eff, errors = get_eff_hist(x, den)
+        plot(eff, histtype='errorbar', yerr=errors, skip_label=True)
+
+    ax2.set_ylabel("Efficiency")
+    ax2.set_ylim(0, 1.2)
 
 def round_sigfig(val, digits=1):
     """Return a number rounded to a given number of significant figures. Uses magic copied from
@@ -269,12 +293,12 @@ def get_lumi(year, cfg="run_periods.yaml"):
     lumi_menu = load_yaml(f"{BASE_DIR}/configs/" + cfg)
     return lumi_menu[year]["lumi"]
 
-def get_lumixs_weight(dataset, year, n_evts):
+def get_lumixs_weight(dataset, year, sum_weights):
     """Get weights to scale n_evts to lumi*xs"""
-    # n_evts: actual number of events processed
+    # n_evts: sum of weights from processed events
     lumi = get_lumi(year)
     xs = get_xs(dataset)
-    return lumi*xs/n_evts
+    return lumi*xs/sum_weights
 
 def check_variablePhoton(value, min_val=0b01):
     """
@@ -287,7 +311,7 @@ def select_numbersPhoton(number, var1, var2):
     Function to select the numbers where each variable is at least 0b010 except for variable of choice
     """
     selected = True
-    
+
     # number will have 14 bits (2 bits per each cut)
     # starting with MinPtCut at the LSB
     # and ending with PhoIsoWithEALinScalingCut at the MSB
@@ -300,8 +324,8 @@ def select_numbersPhoton(number, var1, var2):
         ('NeuHadIsoWithEAQuadScalingCut', 10),
         ('PhoIsoWithEALinScalingCut', 12),
     ]
-    
-    # Check each variable except variable of choice 
+
+    # Check each variable except variable of choice
     for var, start_bit in variables:
         # Get the 2 bits corresponding to this variable
         value = (number >> start_bit) & 0b11  # Extract 2 bits
@@ -309,7 +333,7 @@ def select_numbersPhoton(number, var1, var2):
             if not check_variablePhoton(value):
                 selected = False
                 break
-    
+
     return selected
 
 
