@@ -36,6 +36,7 @@ obj_cut_defs = {
         #"2dsaMuLj": lambda objs: ak.num(objs["ljs"].dsaMuons) > 2,
         "pfDsaMuLj": lambda objs: (ak.num(objs["ljs"].pfMuons) > 0) & (ak.num(objs["ljs"].dsaMuons) > 0),
         "2muLj": lambda objs: objs["ljs"].muon_n >= 2,
+        "only2muLj": lambda objs: objs["ljs"].muon_n == 2,
         "2dsaMuLj": lambda objs: objs["ljs"].dsaMu_n >= 2,
         "lj_iso < 0.1": lambda objs: objs["ljs"].isolation < 0.1,
         "lj_iso < 0.2": lambda objs: objs["ljs"].isolation < 0.2,

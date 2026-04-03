@@ -616,6 +616,166 @@ noLj2dsamu2mulj: &noLj2dsamu2mulj
   evt_cuts:
     - *evt_baseNoLj
 
+CC0charge: &CC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+    
+2muCC0charge: &2muCC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+########################################################
+2mu_2LJ_CCnocharge: &2mu_2LJ_CCnocharge
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+    - ">=2 LJs"
+
+2mu_2LJ_CC: &2mu_2LJ_CC
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+    - ">=2 LJs"
+
+2LJ_CCnocharge: &2LJ_CCnocharge
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts:
+    - *evt_baseNoLj
+    - ">=2 LJs"
+
+2LJ_CC: &2LJ_CC
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts:
+    - *evt_baseNoLj
+    - ">=2 LJs"
+
+only2mu_2LJ_CCnocharge: &only2mu_2LJ_CCnocharge
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "only2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+    - ">=2 LJs"
+
+only2mu_2LJ_CC: &only2mu_2LJ_CC
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "only2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+    - ">=2 LJs"
+##########################################################
+0chargeCC0charge: &0chargeCC0charge
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "segmatch veto + dR outer + num seg"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "mu_charge == 0"
+  evt_cuts:
+    - *evt_baseNoLj
+
+justCC: &justCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+0chargeCC: &0chargeCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "mu_charge == 0"
+  evt_cuts: 
+    - *evt_baseNoLj
+
+    
+2muCC: &2muCC
+  obj_cuts:
+    <<: *obj_baseNoLj
+    dsaMuons:
+      - "all"
+  postLj_obj_cuts:
+    ljs:
+      - "|eta| < 2.4"
+      - "pT > 30 GeV"
+      - "2muLj"
+  evt_cuts:
+    - *evt_baseNoLj
+
 1muLj0charge2muCC0charge: &1muLj0charge2muCC0charge
   obj_cuts:
     <<: *obj_baseNoLj
