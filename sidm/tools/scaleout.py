@@ -6,7 +6,7 @@ from dask.distributed import Client, PipInstall
 def make_dask_client(address):
     """Create dask client that includes dependency installer"""
     dependencies = [
-        "git+https://github.com/yeopjjang/SIDM.git@coffea2025_crosscleaning",
+        "git+https://github.com/knh3dg/SIDM.git",
     ]
     client = Client(address)
     client.register_plugin(PipInstall(packages=dependencies, pip_options=["--upgrade", "--no-cache-dir"]))
